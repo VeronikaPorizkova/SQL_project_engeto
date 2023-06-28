@@ -1,4 +1,4 @@
-
+-- vytvoření sekundární tabulky
 
 CREATE TABLE t_Veronika_Porizkova_project_SQL_secondary_final AS
 SELECT 
@@ -16,3 +16,4 @@ JOIN countries c
 WHERE GDP IS NOT NULL
 	AND `year` >= 2006
 	AND `year` <= 2018
+;
