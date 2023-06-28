@@ -1,7 +1,6 @@
 
 -- úprava tabulky czechia payroll
 
-
 CREATE TABLE Veronika_Porizkova_pomocna_tabulka_payroll
 SELECT 
 	value,
@@ -11,10 +10,11 @@ SELECT
 	payroll_year
 FROM czechia_payroll cp 
 WHERE value IS NOT NULL
- AND industry_branch_code IS NOT NULL
- AND value_type_code = '5958'
- AND payroll_year >= 2006
- AND payroll_year <= 2018 
+	AND industry_branch_code IS NOT NULL
+	AND value_type_code = '5958'
+	AND payroll_year >= 2006
+	AND payroll_year <= 2018
+GROUP BY payroll_year, industry_branch_code
 ORDER BY payroll_year ASC;
 
 -- úprava tabulky czechia price 
@@ -23,13 +23,12 @@ CREATE TABLE Veronika_Porizkova_pomocna_tabulka_price
 SELECT 
 	value,
 	category_code,
-	DATE_FORMAT (date_from,'%Y') AS date_price,
+	YEAR (date_from) AS date_price,
 	region_code 
 FROM czechia_price cp 
 WHERE region_code  IS NOT NULL
 GROUP BY date_price, region_code, category_code 
 ;
-
 
 -- vytvoření tabulky z price and payroll
 
@@ -47,9 +46,7 @@ FROM Veronika_Porizkova_pomocna_tabulka_payroll vp1
 JOIN Veronika_Porizkova_pomocna_tabulka_price vp2
 	ON vp1.payroll_year = vp2.date_price;
 
-
-
--- následně napojím navazujícíc tabulky
+-- následně napojím navazující tabulky
 
 CREATE TABLE t_Veronika_Porizkova_project_SQL_primary_final AS
 SELECT 
@@ -77,27 +74,3 @@ JOIN czechia_price_category cpc
 	ON vppt.category_code = cpc.code 
 JOIN czechia_region cr 
 	ON vppt.region_code = cr.code;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
