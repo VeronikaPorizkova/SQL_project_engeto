@@ -1,4 +1,3 @@
-
 -- 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 
 SELECT 
@@ -11,5 +10,4 @@ SELECT
 FROM t_Veronika_Porizkova_project_SQL_primary_final pf 
 WHERE category_code IN (111301, 114201)
 	AND payroll_year IN (2006, 2018)
-GROUP BY category_code, payroll_year
-;
+GROUP BY category_code, payroll_year, food_name;
